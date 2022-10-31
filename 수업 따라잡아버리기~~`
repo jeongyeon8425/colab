@@ -1,0 +1,118 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM0kH4UvH2QQzvvI0n8S7G6",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/jeongyeon8425/colab/blob/main/%EC%88%98%EC%97%85%20%EB%94%B0%EB%9D%BC%EC%9E%A1%EC%95%84%EB%B2%84%EB%A6%AC%EA%B8%B0~~%60\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from bs4 import BeautifulSoup\n",
+        "import requests\n",
+        "\n",
+        "search_word = \"안산공업고등학교\" \n",
+        "title_list = []\n",
+        "\n",
+        "def naver_news_get(start_num, end_num) :\n",
+        "  while start_num <= end_num :\n",
+        "    url = 'https://search.naver.com/search.naver?where=news&sm=tab_jum&query={}&start={}'.format(search_word,start_num)\n",
+        "    req = requests.get(url)\n",
+        "    #print(req)\n",
+        "    start_num += 1\n",
+        "    if req.ok :\n",
+        "      html = req.text\n",
+        "      soup = BeautifulSoup(html, \"html.parser\")\n",
+        "      #print(soup)\n",
+        "      titles = soup.select('.news_tit')\n",
+        "      for title in titles :\n",
+        "        title_list.append(title['title'])\n",
+        "  return title_list\n",
+        "print(naver_news_get(1,5))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ubBd1EGsgbp4",
+        "outputId": "21fae436-eaf5-4084-b7e2-dfe83f735013"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['안산공업고등학교 윤지은 선수, 국제기능올림픽대회 3D 디지털게임아트 분야 은메달 수상', '[즐거운 우리학교] 안산공업고등학교, 체계적 지원으로 \\'공부 잘하는 야구부\\'… \"실력·우정 모두 홈런\"', '안산 공업고등학교, 제57회 전국기능경기대회 경기도 참가학교 1위', '안산시, 선행 베푼 안산공업고등학교 김민재·노충남 학생에 표창장 수여', \"안산공업고등학교, 3D프린팅로봇제작 연구반 '프로젝트 수업발표회'\", '[즐거운 우리학교] 송원국 안산공고 야구부 감독 \"팀 한명도 소외 없도록 정성껏 훈련 지도\"', '[즐거운 우리학교] 이공열 안산공고 교장 \"우수학생 진학하고픈 명문학교 조성\"', '안산공고, 전국기능경기대회 경기도 참가학교 1위 달성', '안산 공업고등학교, 34개 강소기업과 학생 취업맞춤 반 협약식', '안산시청소년재단, 제1회 메이커 DALTHON(달트톤) 대회 열어', '[즐거운 우리학교] 안산공업고등학교, 체계적 지원으로 \\'공부 잘하는 야구부\\'… \"실력·우정 모두 홈런\"', '안산 공업고등학교, 제57회 전국기능경기대회 경기도 참가학교 1위', '안산시, 선행 베푼 안산공업고등학교 김민재·노충남 학생에 표창장 수여', \"안산공업고등학교, 3D프린팅로봇제작 연구반 '프로젝트 수업발표회'\", '[즐거운 우리학교] 송원국 안산공고 야구부 감독 \"팀 한명도 소외 없도록 정성껏 훈련 지도\"', '[즐거운 우리학교] 이공열 안산공고 교장 \"우수학생 진학하고픈 명문학교 조성\"', '안산공고, 전국기능경기대회 경기도 참가학교 1위 달성', '안산 공업고등학교, 34개 강소기업과 학생 취업맞춤 반 협약식', \"안산시 청소년재단, 메이커 스페이스 '제1회 메이커 DALTHON대회' 개최\", '대전고, 제56회 대통령배 전국고교야구대회 결승 진출, 안산공업고에 18대4 대승', '안산 공업고등학교, 제57회 전국기능경기대회 경기도 참가학교 1위', '안산시, 선행 베푼 안산공업고등학교 김민재·노충남 학생에 표창장 수여', \"안산공업고등학교, 3D프린팅로봇제작 연구반 '프로젝트 수업발표회'\", '[즐거운 우리학교] 송원국 안산공고 야구부 감독 \"팀 한명도 소외 없도록 정성껏 훈련 지도\"', '[즐거운 우리학교] 이공열 안산공고 교장 \"우수학생 진학하고픈 명문학교 조성\"', '안산공고, 전국기능경기대회 경기도 참가학교 1위 달성', '안산 공업고등학교, 34개 강소기업과 학생 취업맞춤 반 협약식', \"안산시 청소년재단, 메이커 스페이스 '제1회 메이커 DALTHON대회' 개최\", '대전고, 제56회 대통령배 전국고교야구대회 결승 진출, 안산공업고에 18대4 대승', \"이민근 안산시장, '이재민 위로하고 선행 베푼 안산공고 학생들 표창장도 수여'\", '안산시, 선행 베푼 안산공업고등학교 김민재·노충남 학생에 표창장 수여', \"안산공업고등학교, 3D프린팅로봇제작 연구반 '프로젝트 수업발표회'\", '[즐거운 우리학교] 송원국 안산공고 야구부 감독 \"팀 한명도 소외 없도록 정성껏 훈련 지도\"', '[즐거운 우리학교] 이공열 안산공고 교장 \"우수학생 진학하고픈 명문학교 조성\"', '안산공고, 전국기능경기대회 경기도 참가학교 1위 달성', '안산 공업고등학교, 34개 강소기업과 학생 취업맞춤 반 협약식', \"안산시 청소년재단, 메이커 스페이스 '제1회 메이커 DALTHON대회' 개최\", '대전고, 제56회 대통령배 전국고교야구대회 결승 진출, 안산공업고에 18대4 대승', \"이민근 안산시장, '이재민 위로하고 선행 베푼 안산공고 학생들 표창장도 수여'\", '안산공업고, 56회 대통령배 전국고교야구대회 4강 진출...덕수고에 10대2 콜드게임 승', \"안산공업고등학교, 3D프린팅로봇제작 연구반 '프로젝트 수업발표회'\", '[즐거운 우리학교] 송원국 안산공고 야구부 감독 \"팀 한명도 소외 없도록 정성껏 훈련 지도\"', '[즐거운 우리학교] 이공열 안산공고 교장 \"우수학생 진학하고픈 명문학교 조성\"', '안산공고, 전국기능경기대회 경기도 참가학교 1위 달성', '안산 공업고등학교, 34개 강소기업과 학생 취업맞춤 반 협약식', \"안산시 청소년재단, 메이커 스페이스 '제1회 메이커 DALTHON대회' 개최\", '대전고, 제56회 대통령배 전국고교야구대회 결승 진출, 안산공업고에 18대4 대승', \"이민근 안산시장, '이재민 위로하고 선행 베푼 안산공고 학생들 표창장도 수여'\", '안산공업고, 56회 대통령배 전국고교야구대회 4강 진출...덕수고에 10대2 콜드게임 승', '[대통령배 고교야구대회] 안산공고, 덕수고에 10대2 승리...준결승·결승전 중계는?']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from konlpy.tag import Kkma\n",
+        "from konlpy.utils import pprint\n",
+        "\n",
+        "kkma = Kkma()\n",
+        "titles = naver_news_get(1,5)\n",
+        "for title in titles :\n",
+        "  print(kkma.pos(title))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 400
+        },
+        "id": "Lz7owpSTk0LU",
+        "outputId": "1ef56ebf-611d-4036-ce3d-352b3c7ced24"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-15-49fa98de09ca>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mkonlpy\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtag\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mKkma\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mkonlpy\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mutils\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mpprint\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mkkma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mKkma\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mtitles\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnaver_news_get\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'konlpy'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ],
+          "errorDetails": {
+            "actions": [
+              {
+                "action": "open_url",
+                "actionText": "Open Examples",
+                "url": "/notebooks/snippets/importing_libraries.ipynb"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
